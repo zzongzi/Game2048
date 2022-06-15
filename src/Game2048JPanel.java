@@ -7,23 +7,15 @@ import java.awt.event.MouseEvent;
 
 public class Game2048JPanel extends JPanel {
     private Tile[][] tiles = new Tile[4][4];
-    private Game2048Helper game2048Helper = new Game2048Helper();
+    private TileHelper tileHelper = new TileHelper();
+    private GameStateHelp gameStateHelp = new GameStateHelp();
     private Color backgroundColor = new Color(0xBBADA0);
     private boolean isStart = false;
-    private Game2048Helper.GameState gameState = Game2048Helper.GameState.CONTINUE;
+    private GameStateHelp.GameState gameState = GameStateHelp.GameState.CONTINUE;
 
     public Game2048JPanel() {
-        initTile();
+        tileHelper.initNullTile(tiles);
         initJPanel();
-    }
-
-    //初始化方块
-    private void initTile() {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                tiles[i][j] = new Tile();
-            }
-        }
     }
 
     //初始化JPanel相关属性
@@ -38,11 +30,11 @@ public class Game2048JPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 //当胜利/失败后 点击重新开始游戏
-                if (gameState == Game2048Helper.GameState.WIN || gameState == Game2048Helper.GameState.DEFEAT) {
+                if (gameState == GameStateHelp.GameState.WIN || gameState == GameStateHelp.GameState.DEFEAT) {
                     //重新初始化
-                    gameState = Game2048Helper.GameState.CONTINUE;
+                    gameState = GameStateHelp.GameState.CONTINUE;
                     isStart = false;
-                    initTile();
+                    tileHelper.initNullTile(tiles);
                     //重绘
                     repaint();
                 }
@@ -69,22 +61,22 @@ public class Game2048JPanel extends JPanel {
                 }
 
                 //若含有空方块
-                if (game2048Helper.checkNullTile(tiles)) {
+                if (tileHelper.checkNullTile(tiles)) {
                     //移动后随机将空方块赋为2/4的数值
-                    game2048Helper.updateNullTile(tiles);
+                    tileHelper.updateNullTile(tiles);
                 }
 
                 //移动后检测游戏是否胜利/失败/继续
-                switch (game2048Helper.checkGameState(tiles)
+                switch (gameStateHelp.checkGameState(tiles)
                 ) {
                     case WIN -> {
-                        gameState = Game2048Helper.GameState.WIN;
+                        gameState = GameStateHelp.GameState.WIN;
                         break;
                     }
                     case DEFEAT -> {
                         //再次检验是否含有空方块 若无空方块则失败
-                        if (!game2048Helper.checkNullTile(tiles)) {
-                            gameState = Game2048Helper.GameState.DEFEAT;
+                        if (!tileHelper.checkNullTile(tiles)) {
+                            gameState = GameStateHelp.GameState.DEFEAT;
                         }
                         break;
                     }
@@ -136,7 +128,7 @@ public class Game2048JPanel extends JPanel {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         if (!isStart) {
             //初始化默认方块值
-            game2048Helper.initDefaultTile(tiles);
+            tileHelper.initDefaultTile(tiles);
             isStart = true;
         }
         //绘制背景
