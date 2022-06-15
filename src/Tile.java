@@ -15,12 +15,6 @@ public class Tile {
     public Tile() {
     }
 
-    public Tile(int colorIndex, int num) {
-        this.colorIndex = colorIndex;
-        this.color = colorTable[colorIndex];
-        this.num = num;
-    }
-
     public void move(Tile preTile) {
         if (preTile.num == 0) {
             //前一位置为空 直接前移

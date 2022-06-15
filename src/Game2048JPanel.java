@@ -178,10 +178,12 @@ public class Game2048JPanel extends JPanel {
         switch (gameState) {
             case WIN -> {
                 g.drawString("   WIN   ", 320, 367);
+                g.drawString("Click To Replay", 270, 480);
                 break;
             }
             case DEFEAT -> {
                 g.drawString("Game Over", 320, 367);
+                g.drawString("Click To Replay", 270, 480);
                 break;
             }
         }
