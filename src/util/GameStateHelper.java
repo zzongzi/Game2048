@@ -1,4 +1,8 @@
-public class GameStateHelp {
+package util;
+
+import entity.Tile;
+
+public class GameStateHelper {
     public enum GameState {
         WIN, DEFEAT, CONTINUE
     }

@@ -1,10 +1,12 @@
+package util;
+import entity.Tile;
 import java.util.Random;
 
 public class TileHelper {
     private Random random = new Random();
 
     //初始化方块
-    public void initNullTile(Tile [][]tiles) {
+    public void initNullTile(Tile[][] tiles) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 tiles[i][j] = new Tile();

@@ -1,3 +1,9 @@
+package ui;
+
+import entity.Tile;
+import util.GameStateHelper;
+import util.TileHelper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -8,10 +14,10 @@ import java.awt.event.MouseEvent;
 public class Game2048JPanel extends JPanel {
     private Tile[][] tiles = new Tile[4][4];
     private TileHelper tileHelper = new TileHelper();
-    private GameStateHelp gameStateHelp = new GameStateHelp();
+    private GameStateHelper gameStateHelper = new GameStateHelper();
     private Color backgroundColor = new Color(0xBBADA0);
     private boolean isStart = false;
-    private GameStateHelp.GameState gameState = GameStateHelp.GameState.CONTINUE;
+    private GameStateHelper.GameState gameState = GameStateHelper.GameState.CONTINUE;
 
     public Game2048JPanel() {
         tileHelper.initNullTile(tiles);
@@ -30,9 +36,9 @@ public class Game2048JPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 //当胜利/失败后 点击重新开始游戏
-                if (gameState == GameStateHelp.GameState.WIN || gameState == GameStateHelp.GameState.DEFEAT) {
+                if (gameState == GameStateHelper.GameState.WIN || gameState == GameStateHelper.GameState.DEFEAT) {
                     //重新初始化
-                    gameState = GameStateHelp.GameState.CONTINUE;
+                    gameState = GameStateHelper.GameState.CONTINUE;
                     isStart = false;
                     tileHelper.initNullTile(tiles);
                     //重绘
@@ -67,16 +73,16 @@ public class Game2048JPanel extends JPanel {
                 }
 
                 //移动后检测游戏是否胜利/失败/继续
-                switch (gameStateHelp.checkGameState(tiles)
+                switch (gameStateHelper.checkGameState(tiles)
                 ) {
                     case WIN -> {
-                        gameState = GameStateHelp.GameState.WIN;
+                        gameState = GameStateHelper.GameState.WIN;
                         break;
                     }
                     case DEFEAT -> {
                         //再次检验是否含有空方块 若无空方块则失败
                         if (!tileHelper.checkNullTile(tiles)) {
-                            gameState = GameStateHelp.GameState.DEFEAT;
+                            gameState = GameStateHelper.GameState.DEFEAT;
                         }
                         break;
                     }

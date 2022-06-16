@@ -1,8 +1,10 @@
+package entity;
+
 import java.awt.*;
 
 public class Tile {
     //颜色
-    final Color[] colorTable = {
+    private final Color[] colorTable = {
             new Color(0xCDC1B4), new Color(0xFFE4C3), new Color(0xfff4d3),
             new Color(0xffdac3), new Color(0xe7b08e), new Color(0xe7bf8e),
             new Color(0xffc4c3), new Color(0xE7948e), new Color(0xbe7e56),
