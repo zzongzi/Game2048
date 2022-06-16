@@ -173,9 +173,10 @@ public class Game2048JPanel extends JPanel {
 
     //绘制状态
     private void drawState(Graphics2D g) {
+        g.setColor(backgroundColor.darker());
         switch (gameState) {
             case WIN -> {
-                g.drawString("   WIN   ", 320, 367);
+                g.drawString("   WIN   ", 358, 367);
                 g.drawString("Click To Replay", 270, 480);
                 break;
             }
